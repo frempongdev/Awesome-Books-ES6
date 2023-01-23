@@ -1,17 +1,25 @@
 import { reset, menuItems, sections } from './modules/menu.js';
-import { date } from './modules/dateTime.js';
+import date from './modules/dateTime.js';
+
 date();
 
+menuItems.forEach((item, index) => {
+  item.addEventListener('click', () => {
+    reset();
+    sections[index].style.display = 'block';
+  });
+});
+
 class BookList {
-    constructor() {
-      this.form = document.querySelector('.add-book-form');
-      this.bookTitle = document.querySelector('#book-title');
-      this.bookAuthor = document.querySelector('#book-author');
-      this.booksContainer = document.querySelector('.books-container');
-      this.books = JSON.parse(localStorage.getItem('Books')) || [];
-      this.domDisplay();
-      this.bindEvents();
-    }
+  constructor() {
+    this.form = document.querySelector('.add-book-form');
+    this.bookTitle = document.querySelector('#book-title');
+    this.bookAuthor = document.querySelector('#book-author');
+    this.booksContainer = document.querySelector('.books-container');
+    this.books = JSON.parse(localStorage.getItem('Books')) || [];
+    this.domDisplay();
+    this.bindEvents();
+  }
 
     domDisplay = () => {
       this.books.forEach((book) => {
@@ -60,4 +68,4 @@ class BookList {
     }
 }
 
-const bookObj = new BookList();
+new BookList(); // eslint-disable-line no-new
